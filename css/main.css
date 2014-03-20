@@ -93,7 +93,7 @@ a:visited { color: #a0a; }
   -moz-filter: grayscale(80%);
   filter: grayscale(80%);
 
-  background-image: url('/images/selfie.jpg');
+  background-image: url('http://tmw.github.io/blog/images/selfie.jpg');
   background-size: 62px;
   background-repeat: no-repeat;
   margin-bottom: 5px;
