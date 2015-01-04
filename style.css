@@ -1,0 +1,128 @@
+html, body{
+  padding: 0px;
+  margin:  0px;
+}
+
+body {
+  background-color: #f5664d;
+}
+
+.content{
+  width: 470px;
+  margin: 0px auto;
+  margin-top: 400px;
+}
+.content > header{
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.blocks {
+  width: 470px;
+}
+
+.block {
+  width:  150px;
+  height: 150px;
+  border-radius: 2px;
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.block-container{
+  display: block;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.block-container > .graphic, .block-container > .description{
+  height: 150px;
+  width: 150px;
+}
+
+.block-container > .graphic {
+  transition: margin .15s ease-in-out;
+}
+
+.block-container:hover > .graphic{
+  margin-top: -150px;
+}
+
+.block-container > .graphic span.icon{
+  font-size: 50pt;
+  text-align: center;
+  color: rgba(255,255,255, .6);
+  display: block;
+  height: 150px;
+  width: 150px;
+  padding-top: 42px;
+}
+
+.block-container > .description {
+  display: table-cell;
+  text-align: center;
+  font-family: helvetica;
+  width: 130px;
+  height: 130px;
+  padding: 10px;
+  vertical-align: middle;
+  color: #FFF;
+}
+
+.block:nth-child(3n +3){
+  margin-right: 0px;
+}
+.block:nth-child(1n+4){
+  margin-bottom: 0px;
+}
+
+.block-1{
+  background-color: #FF8872;
+}
+
+.block-2{
+  background-color: #FFAC9D;
+}
+
+.block-3{ /*github*/
+  background-color: #FF7C64;
+}
+
+.block-4{
+  background-color: #FF745B;
+}
+
+.block-5{
+  background-color: #FF9A67;
+}
+
+.block-6{
+  background-color: #FF914C; 
+}
+
+
+
+#brand {
+  border: 2px solid rgba(255, 255, 255, .7);
+  color: rgba(255, 255, 255, .7);
+
+  transition-property: border, color;
+  transition-duration: .6s;
+
+  border-radius: 2px;
+  padding: 5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  
+  font-family: helvetica;
+  font-weight: bold;
+  font-size: 18pt;
+}
+
+#brand:hover{
+  border: 2px solid rgba(255, 255, 255, 1);
+  color: rgba(255, 255, 255, 1);
+}
