@@ -1,9 +1,6 @@
 html, body{
   padding: 0px;
-  margin:  0px;
-}
-
-body {
+  margin: 0px;
   background-color: #f5664d;
 }
 
@@ -22,7 +19,7 @@ body {
 }
 
 .block {
-  width:  150px;
+  width: 150px;
   height: 150px;
   border-radius: 2px;
   float: left;
@@ -66,8 +63,7 @@ body {
   text-align: center;
   font-family: helvetica;
   width: 130px;
-  height: 130px;
-  padding: 10px;
+  padding: 0px 10px;
   vertical-align: middle;
   color: #FFF;
 }
@@ -79,33 +75,32 @@ body {
   margin-bottom: 0px;
 }
 
-.block-1{
+.block-1{ /*Awkward*/
   background-color: #FF8872;
 }
 
-.block-2{
+.block-2{ /*CoderDojo*/
   background-color: #FFAC9D;
 }
 
-.block-3{ /*github*/
+.block-3{ /*GitHub*/
   background-color: #FF7C64;
 }
 
-.block-4{
+.block-4{ /*Email*/
   background-color: #FF745B;
 }
 
-.block-5{
+.block-5{ /*Twitter*/
   background-color: #FF9A67;
 }
 
-.block-6{
+.block-6{ /*Beers*/
   background-color: #FF914C; 
 }
 
-
-
-#brand {
+/*Style the header*/
+.brand > a {
   border: 2px solid rgba(255, 255, 255, .7);
   color: rgba(255, 255, 255, .7);
 
@@ -122,7 +117,7 @@ body {
   font-size: 18pt;
 }
 
-#brand:hover{
+.brand > a:hover{
   border: 2px solid rgba(255, 255, 255, 1);
   color: rgba(255, 255, 255, 1);
 }
