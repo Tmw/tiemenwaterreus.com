@@ -1,127 +1,71 @@
-html, body{
+@import url('https://fonts.googleapis.com/css?family=Droid+Serif|Open+Sans');
+
+html, body {
+  min-height: 100%;
   padding: 0px;
   margin: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FAFAFA;
 }
 
-.content{
-  width: 470px;
-  height: 400px;
-  /*margin: 0px auto;*/
-  /*margin-top: 400px;*/
-
-  margin: auto;
-  position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
+.content {
+  max-width: 800px;
+  padding: 20px;
 }
-.content > header{
+
+.content h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 2em;
+  color: #333333;
   text-align: center;
-  margin-bottom: 50px;
+}
+.content p {
+  text-align: center;
+  color: #333333;
+  line-height: 1.8em;
+  font-family: 'Droid Serif', serif;
+  font-size: 1.3em;
 }
 
-.blocks {
-  width: 470px;
+.content ul {
+  display: flex;
+  padding: 0px;
+  flex-direction: row;
+  justify-content: center;
+}
+.content ul li {
+  list-style: none;
+  padding-right: 20px;
 }
 
-.block {
-  width: 150px;
-  height: 150px;
-  border-radius: 2px;
-  float: left;
-  margin-right: 10px;
-  margin-bottom: 10px;
+.content p a, .content p a:visited {
+  color: #FF0084;
 }
 
-.block-container{
-  display: block;
-  width: 150px;
-  height: 150px;
-  overflow: hidden;
+.content ul img {
+  width: 30px;
+  fill: currentColor;
+}
+
+@media (max-width: 600px) {
+    .content { padding: 40px; }
+    .content p { text-align: left; }
+    .content h1 { text-align: left; }
+    .content ul { justify-content: left; }
+}
+
+.rofldomain {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.rofldomain a {
+
   text-decoration: none;
-}
-
-.block-container > .graphic, .block-container > .description{
-  height: 150px;
-  width: 150px;
-}
-
-.block-container > .graphic {
-  transition: margin .15s ease-in-out;
-}
-
-.block-container:hover > .graphic{
-  margin-top: -150px;
-}
-
-.block-container > .graphic span.icon{
-  font-size: 50pt;
-  text-align: center;
-  color: rgba(255,255,255, .6);
-  display: block;
-  height: 150px;
-  width: 150px;
-  padding-top: 42px;
-}
-
-.block-container > .description {
-  display: table-cell;
-  text-align: center;
-  font-family: helvetica;
-  width: 130px;
-  padding: 0px 10px;
-  vertical-align: middle;
-  color: #FFF;
-}
-
-.block:nth-child(3n +3){
-  margin-right: 0px;
-}
-.block:nth-child(1n+4){
-  margin-bottom: 0px;
-}
-
-.block-1{ /*Awkward*/
-  background-color: #FF8872;
-}
-
-.block-2{ /*CoderDojo*/
-  background-color: #FFAC9D;
-}
-
-.block-3{ /*GitHub*/
-  background-color: #FF7C64;
-}
-
-.block-4{ /*Email*/
-  background-color: #FF745B;
-}
-
-.block-5{ /*Twitter*/
-  background-color: #FF9A67;
-}
-
-.block-6{ /*Beers*/
-  background-color: #FF914C; 
-}
-
-/*Style the header*/
-.brand > a {
-  border: 2px solid rgba(255, 255, 255, .7);
-  color: rgba(255, 255, 255, .7);
-
-  transition-property: border, color;
-  transition-duration: .6s;
-
-  border-radius: 2px;
-  padding: 5px;
-  text-transform: uppercase;
-  text-decoration: none;
-  
-  font-family: helvetica;
+  color: #333333;
   font-weight: bold;
-  font-size: 18pt;
-}
-
-.brand > a:hover{
-  border: 2px solid rgba(255, 255, 255, 1);
-  color: rgba(255, 255, 255, 1);
+  font-family: 'Open Sans', sans-serif;
 }
