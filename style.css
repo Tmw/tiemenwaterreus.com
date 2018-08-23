@@ -59,16 +59,3 @@ html, body {
     .content h1 { text-align: left; }
     .content ul { justify-content: left; }
 }
-
-.metalsmirkdomain {
-  margin-top: 40px;
-  display: flex;
-  justify-content: center;
-}
-
-.metalsmirkdomain a {
-  text-decoration: none;
-  color: #333333;
-  font-weight: bold;
-  font-family: 'Open Sans', sans-serif;
-}
