@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ .Title }} ~ {{ .Site.Title }}</title>
+    {{- partial "head.html" . -}}
+
+    <meta property="og:title" content="{{ .Title }} ~ {{ .Site.Title }}" />
+    <meta name="twitter:title" content="{{ .Title }} ~ {{ .Site.Title }}" />
+    <meta itemprop="name" content="{{ .Title }} ~ {{ .Site.Title }}" />
+    <meta name="application-name" content="{{ .Title }} ~ {{ .Site.Title }}" />
+    <meta property="og:site_name" content="{{ .Site.Params.sitename }}" />
+
+    <meta name="keywords" content="{{ .Params.keywords }}" />
+
+    <meta name="description" content="{{ .Params.description }}" />
+    <meta itemprop="description" content="{{ .Params.description }}" />
+    <meta property="og:description" content="{{ .Params.description }}" />
+    <meta name="twitter:description" content="{{ .Params.description }}" />
+
+    <link rel="canonical" href="{{ .Permalink }}" itemprop="url" />
+    <meta name="url" content="{{ .Permalink }}" />
+    <meta name="twitter:url" content="{{ .Permalink }}" />
+    <meta property="og:url" content="{{ .Permalink }}" />
+  </head>
+  <body>
+    <section class="bring-me-back">
+      <a href="/posts">&larr; all posts</a>
+    </section>
+
+    <section class="single-post">
+      <h1>{{ .Title }}</h1>
+      <div class="meta">
+        Posted on {{ dateFormat "Jan 2, 2006" .Date }}{{ if .Draft }}
+        <span class="draft-label">DRAFT</span> {{ end }}
+      </div>
+      {{ .Content }}
+    </section>
+  </body>
+</html>

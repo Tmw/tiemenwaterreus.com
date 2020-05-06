@@ -1,0 +1,181 @@
+@import url("https://fonts.googleapis.com/css?family=Droid+Serif|Open+Sans");
+
+html,
+body {
+  min-height: 100%;
+  min-width: 100%;
+
+  padding: 0px;
+  margin: 0px;
+  background-color: #fafafa;
+}
+
+@media (min-width: 800px) {
+  html,
+  body {
+    min-height: 100%;
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Main content */
+.content {
+  max-width: 400px;
+  padding: 0px 40px;
+}
+p > code {
+  background-color: white;
+  padding: 0px 4px;
+  border-radius: 2px;
+  border: 1px solid #cccccc;
+}
+.highlight pre {
+  overflow-x: scroll;
+  padding: 10px;
+}
+.highlight code {
+  font-size: 1.3em;
+}
+
+@media (max-width: 800px) {
+  .highlight {
+    margin: 0px -20px;
+  }
+}
+
+.content h1 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 2em;
+  color: #333333;
+}
+
+.single-post h1 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 2em;
+  margin-top: 0px;
+  color: #333333;
+}
+.single-post h2 {
+  font-family: "Open Sans", sans-serif;
+  color: #ff0084;
+}
+
+.single-post blockquote {
+  border-left: 5px solid #ff0084;
+  padding-left: 20px;
+  margin: 0px;
+}
+
+.single-post blockquote p {
+  color: #333333;
+}
+
+p,
+li {
+  color: #333333;
+  line-height: 1.8em;
+  font-family: "Droid Serif", serif;
+  font-size: 1.3em;
+}
+
+p a,
+p a:visited {
+  color: #ff0084;
+  transition: color 200ms;
+}
+
+p a:hover {
+  color: #999999;
+}
+
+@media (max-width: 800px) {
+  .content p,
+  .single-post p {
+    text-align: left;
+  }
+  .content h1,
+  .single-post h1 {
+    text-align: left;
+  }
+  .content ul,
+  .single-post ul {
+    justify-content: left;
+  }
+}
+
+/* list of posts */
+.posts {
+  max-width: 800px;
+  padding: 20px;
+}
+
+.single-post {
+  max-width: 800px;
+  padding: 20px;
+}
+
+.single-post .meta {
+  color: #aaaaaa;
+}
+
+.posts ul {
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+}
+
+.post {
+  line-height: 1.8em;
+  font-family: "Droid Serif", serif;
+  font-size: 1.5em;
+  padding-bottom: 10px;
+}
+
+.post .draft-label {
+  color: #c9c9c9;
+}
+
+.post a {
+  color: #ff0084;
+}
+
+.bring-me-back {
+  margin: 20px 0px 0px 0px;
+  padding-left: 20px;
+}
+
+.bring-me-back a {
+  font-family: "Droid Serif", serif;
+  color: #aaaaaa;
+  text-decoration: none;
+  padding: 10px 0px;
+}
+
+hr {
+  border: none;
+  background-color: #ff0084;
+  height: 1px;
+}
+
+img {
+  max-width: 800px;
+}
+
+figure {
+  margin-block-start: 0;
+  margin-block-end: 0px;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  text-align: center;
+}
+
+figcaption p {
+  color: #aaaaaa;
+  font-style: italic;
+  font-size: 1em;
+}
