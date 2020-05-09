@@ -1,0 +1,9 @@
+baseURL = "https://tiemenwaterreus.com/"
+languageCode = "en-us"
+title = "Tiemen"
+theme = "tiemen"
+
+[markup]
+  [markup.highlight]
+    style="solarized-dark"
+    lineNos = true

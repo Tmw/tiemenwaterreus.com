@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Scribbles ~ {{ .Site.Title }}</title>
+    {{- partial "head.html" . -}}
+  </head>
+  <body>
+    <section class="bring-me-back">
+      <a href="/">&larr; back home</a>
+    </section>
+
+    <section class="posts">
+      <ul>
+        {{- range .Data.Pages -}}
+        <li class="post">
+          {{ .Params.Icon }}
+          <a href="{{ .RelPermalink }}">{{.Title}}</a>
+          <span class="meta">
+            {{ if .Draft }}
+            <span class="draft-label">(draft)</span>
+            {{ end }}
+          </span>
+        </li>
+        {{- end -}}
+      </ul>
+    </section>
+  </body>
+</html>
