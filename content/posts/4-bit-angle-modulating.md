@@ -29,9 +29,9 @@ Ok, so by now we know that the brightness of a LED can be controlled by switchin
 
 The key difference between PWM and BAM is in how the high versus low periods are calculated. Bit Angle Modulation is also referred to as Binary Code Modulation and as the name suggest; we need to start thinking in binary. BAM uses the key property of binary numbers where as you count upwards, the value of the bits doubles in value. So the least significant bit is 1 and the most significant bit (in a 4-bit system) is 8.
 
-{{< figure src="/resources/4-bit-bam/bam.png" caption="http://www.batsocks.co.uk/readme/art_bcm_3.htm">}}
+{{< figure src="/resources/4-bit-bam/bam.png" caption="https://www.batsocks.co.uk/readme/art_bcm_3.htm">}}
 
-This article on [batsocks.co.uk](http://www.batsocks.co.uk/readme/art_bcm_3.htm) gave me a clear understanding of how this would actually apply to modulation: The first bit in the example is 1 so the pin will be high for one tick (CPU cycle). The next bit is 0 so the pin will be low for two ticks. The next bit is 1 so the pin will be high again for four ticks and the last bit is also a 1 so the pin will continue being high for another eight ticks. See? As the position of the bit in the binary system determines its value, it is determining the amount of ticks it will applying its value for in BAM.
+This article on [batsocks.co.uk](https://www.batsocks.co.uk/readme/art_bcm_3.htm) gave me a clear understanding of how this would actually apply to modulation: The first bit in the example is 1 so the pin will be high for one tick (CPU cycle). The next bit is 0 so the pin will be low for two ticks. The next bit is 1 so the pin will be high again for four ticks and the last bit is also a 1 so the pin will continue being high for another eight ticks. See? As the position of the bit in the binary system determines its value, it is determining the amount of ticks it will applying its value for in BAM.
 
 Using BAM we can actually write these values as decimal ranging from 0–15. Since 15 in decimal is 1111 in binary. This would corespondent to a 100% duty cycle in PWM meaning the LED would be turned on with its full brightness.
 
