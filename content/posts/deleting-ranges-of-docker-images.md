@@ -1,5 +1,5 @@
 ---
-title: Deleting ranges of docker images using filters
+title: Deleting ranges of Docker images using filters
 date: 2019-09-10T22:30:03+02:00
 draft: false
 description: After working with Docker for a while, the output of `docker images` most likely spans many, many lines. Here's how to make it clean and tidy again
