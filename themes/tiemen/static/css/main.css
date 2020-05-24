@@ -8,6 +8,7 @@ body {
   padding: 0px;
   margin: 0px;
   background-color: #fafafa;
+  font-size: 1.1em;
 }
 
 @media (min-width: 800px) {
@@ -20,6 +21,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    font-size: 1.2em;
   }
 }
 
@@ -37,9 +39,6 @@ p > code {
 .highlight pre {
   overflow-x: scroll;
   padding: 10px;
-}
-.highlight code {
-  font-size: 1.3em;
 }
 
 @media (max-width: 800px) {
@@ -80,7 +79,6 @@ li {
   color: #333333;
   line-height: 1.8em;
   font-family: "Droid Serif", serif;
-  font-size: 1.3em;
 }
 
 p a,
@@ -121,6 +119,7 @@ p a:hover {
 
 .single-post .meta {
   color: #aaaaaa;
+  font-size: 0.7em;
 }
 
 .posts ul {
@@ -132,7 +131,6 @@ p a:hover {
 .post {
   line-height: 1.8em;
   font-family: "Droid Serif", serif;
-  font-size: 1.5em;
   padding-bottom: 10px;
 }
 
@@ -179,5 +177,5 @@ figure {
 figcaption p {
   color: #aaaaaa;
   font-style: italic;
-  font-size: 1em;
+  font-size: 0.8em;
 }
