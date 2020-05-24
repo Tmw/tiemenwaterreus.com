@@ -1,5 +1,5 @@
 ---
-title: "Linear Regression with Elixir, Phoenix and Liveview. Part II"
+title: "Linear Regression with Elixir, Phoenix and LiveView. Part II"
 date: 2020-05-09T22:30:03+02:00
 draft: false
 keywords: linrear regression, machine learning, elixir, liveview
@@ -7,7 +7,7 @@ description: Making our linear regression algorithm interactive using Phoenix Li
 icon: 📈
 ---
 
-In the [previous post](/posts/linear-regression-elixir-phoenix-liveview-i/) we walked through setting up a fairly simple linear regression algoritm that uses the slope-intercept form and gradient descent to fit the best line possible over a list of given datapoints. In this part we will make this interactive using Phoenix Liveview and a SVG element in the browser.
+In the [previous post](/posts/linear-regression-elixir-phoenix-liveview-i/) we walked through setting up a fairly simple linear regression algoritm that uses the slope-intercept form and gradient descent to fit the best line possible over a list of given datapoints. In this part we will make this interactive using Phoenix LiveView and a SVG element in the browser.
 
 ## Kicking things off
 
@@ -15,7 +15,7 @@ In the previous post we've scaffolded a Phoenix LiveView application using `mix 
 
 Either `iex -S mix phx.server` or `mix phoenix.server` will do. I like the former better because it drops us immediately into an IEx session we can use to inspect, validate or just doodle around.
 
-Visiting `http://localhost:4000` will greet us with a default Phoenix Liveview page:
+Visiting `http://localhost:4000` will greet us with a default Phoenix LiveView page:
 
 {{< figure src="/resources/linreg-ii/default_page.png" caption="The default Phoenix LiveView page" >}}
 

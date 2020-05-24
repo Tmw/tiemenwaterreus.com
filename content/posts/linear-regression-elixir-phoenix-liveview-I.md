@@ -1,5 +1,5 @@
 ---
-title: "Linear Regression with Elixir, Phoenix and Liveview. Part I"
+title: "Linear Regression with Elixir, Phoenix and LiveView. Part I"
 date: 2020-04-28T22:30:03+02:00
 draft: false
 keywords: linrear regression, machine learning, elixir, liveview
@@ -7,7 +7,7 @@ description: Writing a basic linear regression algorithm in Elixir and make it i
 icon: 📈
 ---
 
-Phoenix Liveview has been around for [a bit](https://www.youtube.com/watch?v=8xJzHq8ru0M), but with the release of Phoenix 1.5 it became even easier to get started with it in a new Phoenix app! Simply pass the `--live` flag when generating a new project and off you go! 🚀
+Phoenix LiveView has been around for [a bit](https://www.youtube.com/watch?v=8xJzHq8ru0M), but with the release of Phoenix 1.5 it became even easier to get started with it in a new Phoenix app! Simply pass the `--live` flag when generating a new project and off you go! 🚀
 
 In this two part series we're getting our hands dirty with a basic linear regression algorithm that allows the user to click on a plane to add datapoints and the algorithm figure out the best fitting line through these points.
 
@@ -222,4 +222,4 @@ I’ll leave it as an exercise to the reader to play a bit with these values and
 
 That’s it for this post! We built a machine learning model that can perform linear regressions and trained it using gradient descent in Elixir.
 
-In the [next part](/posts/linear-regression-elixir-phoenix-liveview-ii/) we’ll look at how we can make this an interactive example using Phoenix Liveview where clicking on a SVG plane will generate training data and let the model predict the best fitting line through those points.
+In the [next part](/posts/linear-regression-elixir-phoenix-liveview-ii/) we’ll look at how we can make this an interactive example using Phoenix LiveView where clicking on a SVG plane will generate training data and let the model predict the best fitting line through those points.
