@@ -84,7 +84,7 @@ defmodule Linreg.Data do
 end
 ```
 
-In this module we define a struct that holds our training data. A list of X and Y coordinates called _points_. and some utility functions to initialize a new `%Data{}` struct and to add a point to an existing dataset.
+In this module we define a struct that holds our training data. A list of X and Y coordinates called _points_ and some utility functions to initialize a new `%Data{}` struct and to add a point to an existing dataset.
 
 ## Adjusting the weights
 
@@ -120,7 +120,7 @@ Once we have the average error of the model, we adjust each weight by subtractin
 
 ## Taking it for a spin
 
-That’s pretty much all there is to it! Now let’s take it for a spin and see how it works. Fire up an iEX shell again and let’s make some predictions.
+That’s pretty much all there is to it! Now let’s take it for a spin and see how it works. Fire up an IEx shell again and let’s make some predictions.
 
 ```elixir
 # Initialize new trainings data and a new model
