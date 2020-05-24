@@ -7,11 +7,11 @@ description: Making our linear regression algorithm interactive using Phoenix Li
 icon: 📈
 ---
 
-In the [previous post](/posts/linear-regression-elixir-phoenix-liveview-i/) we walked through setting up a fairly simple linear regression algoritm that uses the slope-intercept form and gradient descent to fit the best line possible over a list of given datapoints. In this part we will make this interactive using Phoenix LiveView and a SVG element in the browser.
+In the [previous post](/posts/linear-regression-elixir-phoenix-liveview-i/) we walked through setting up a fairly simple linear regression algorithm that uses the slope-intercept form and gradient descent to fit the best line possible over a list of given datapoints. In this part we will make this interactive using Phoenix LiveView and a SVG element in the browser.
 
 ## Kicking things off
 
-In the previous post we've scaffolded a Phoenix LiveView application using `mix phx.new --live --no-ecto` but up until now we only focussed on the non-phoenix parts. Let's begin by starting our development server and see what we're setup with out-of-the-box:
+In the previous post we've scaffolded a Phoenix LiveView application using `mix phx.new --live --no-ecto` but up until now we only focused on the non-phoenix parts. Let's begin by starting our development server and see what we're setup with out-of-the-box:
 
 Either `iex -S mix phx.server` or `mix phoenix.server` will do. I like the former better because it drops us immediately into an IEx session we can use to inspect, validate or just doodle around.
 
@@ -64,7 +64,7 @@ Now refresh our browser and be greeted with our own module:
 
 ## Collecting datapoints
 
-Now that we have a basic LiveView setup, we can start working on collecting datapoints to let our model learn against. Let's begin by renering a SVG plane on screen.
+Now that we have a basic LiveView setup, we can start working on collecting datapoints to let our model learn against. Let's begin by rendering a SVG plane on screen.
 
 Open our live template (`regression_live.html.leex`) and write the following code:
 
@@ -86,7 +86,7 @@ end
 
 The function definition above has three parameters. The first one is the event name, followed by the parameters of that event and lastly the socket which holds our state and causes the template to re-render if anything changes.
 
-All this function does is print out the parameters when the `"add_point"` event comes in. Lets try it out by refreshing the page and clicking anywhere on the SVG element. The terminal running your Phoenix app should now show something along the lines of:
+All this function does is print out the parameters when the `"add_point"` event comes in. Let's try it out by refreshing the page and clicking anywhere on the SVG element. The terminal running your Phoenix app should now show something along the lines of:
 
 ```bash
 params: %{
@@ -106,7 +106,7 @@ params: %{
 }
 ```
 
-Its right there in the `offsetX` and `offsetY` where we get our coordinates witin the SVG.
+Its right there in the `offsetX` and `offsetY` where we get our coordinates within the SVG.
 
 ## Scaling the data
 
