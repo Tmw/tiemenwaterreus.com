@@ -13,7 +13,7 @@ In this two part series we're getting our hands dirty with a basic linear regres
 
 {{< figure src="/resources/linreg-ii/finished_product.gif" caption="The endresult!" >}}
 
-## Upgrading to Phoenix 1.5.x
+## Upgrading to Phoenix 1.5.0
 
 To kick things off, we first need to get up-to-date with our Phoenix version, if you have not already done this. You can do so by running: `mix archive.install hex phx_new`
 

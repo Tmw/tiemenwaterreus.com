@@ -106,7 +106,10 @@ params: %{
 }
 ```
 
-Its right there in the `offsetX` and `offsetY` where we get our coordinates within the SVG.
+It's right there in the `offsetX` and `offsetY` where we get our coordinates within the SVG.
+
+Note: Since Phoenix 1.5.3 and Phoenix LiveView 0.13.0 `phx-click` no longer sends its metadata along. See the troubleshooting section on Github on [how to fix this](https://github.com/tmw/linreg/#clicks-not-appearing).
+
 
 ## Scaling the data
 
