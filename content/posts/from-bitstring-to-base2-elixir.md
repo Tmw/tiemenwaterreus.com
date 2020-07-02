@@ -24,8 +24,8 @@ end
 Calling the function defined above like:
 
 ```elixir
-Bits.as_string("Hello, dev.to")
-"01001000 01100101 01101100 01101100 01101111 00101100 00100000 01100100 01100101 01110110 00101110 01110100 01101111"
+Bits.as_string("Hello, world!")
+"01001000 01100101 01101100 01101100 01101111 00101100 00100000 01110111 01101111 01110010 01101100 01100100 00100001"
 ```
 
 Where every 8 bits are separated with a space for readability, we can clearly see the patterns of the ASCII table, where: 
