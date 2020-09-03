@@ -1,16 +1,17 @@
 @import url("https://fonts.googleapis.com/css?family=Droid+Serif|Open+Sans");
 
+
 html,
 body {
   min-height: 100%;
   min-width: 100%;
-
   padding: 0px;
   margin: 0px;
   background-color: #fafafa;
-  font-size: 1.1em;
+  font-size: 21px;
 }
 
+/* DESKTOP */
 @media (min-width: 800px) {
   html,
   body {
@@ -21,7 +22,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 1.2em;
+    font-size: 23px;
   }
 }
 
@@ -30,21 +31,34 @@ body {
   max-width: 400px;
   padding: 0px 40px;
 }
+
 p > code {
   background-color: white;
   padding: 0px 4px;
   border-radius: 2px;
   border: 1px solid #cccccc;
 }
-.highlight pre {
-  overflow-x: scroll;
-  padding: 10px;
-}
 
 @media (max-width: 800px) {
   .highlight {
+    font-size: 16px;
     margin: 0px -20px;
   }
+}
+
+@media (min-width: 800px) {
+  .highlight pre {
+    border-radius: 5px;
+  }
+}
+
+.highlight {
+  font-size: 16px;
+}
+
+.highlight pre {
+  padding: 20px;
+  overflow-x: scroll;
 }
 
 .content h1 {
@@ -62,6 +76,12 @@ p > code {
 .single-post h2 {
   font-family: "Open Sans", sans-serif;
   color: #ff0084;
+}
+
+.single-post h3 {
+  color: #ff0084;
+  font-size: 1em;
+  font-family: "Open Sans", sans-serif;
 }
 
 .single-post blockquote {
@@ -115,6 +135,7 @@ p a:hover {
 .single-post {
   max-width: 800px;
   padding: 20px;
+  overflow-x: hidden;
 }
 
 .single-post .meta {
@@ -161,8 +182,7 @@ hr {
 }
 
 img {
-  max-width: 800px;
-  width: 100%;
+  max-width: 100%;
 }
 
 figure {
