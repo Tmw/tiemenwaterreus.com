@@ -185,7 +185,7 @@ Look up each character of the text in our binary tree and keep track of each ste
 
 ### An example
 
-So for example, in our tree above, the letter C has the code `10` since at the first node we  take the right branch and then the left branch and voila. Similarly for the character `s` the code is `1101` since for the first two nodes, we take the right branch, then the left and lastly the right one again.
+So for example, in our tree above, the letter "c" has the code `10` since at the first node we  take the right branch and then the left branch and voila. Similarly for the character "s" the code is `1101` since for the first two nodes, we take the right branch, then the left and lastly the right one again.
 
 {{< figure src="/resources/huffman/tree_with_example.png" caption="Encoding process of S an C" width="500">}}
 
@@ -228,9 +228,10 @@ defp convert(text, tree) do
 end
 ```
 
-This function simply breaks the text into graphemes and iterates over each grapheme by calling `Enum.reduce/3`. Starting off with a empty binary, we can simply append to it for each character we find.
+This function simply breaks the text into graphemes and iterates over each grapheme by calling `Enum.reduce/3`. Starting off with an empty binary, we can simply append to it for each character we find.
 
 Now wire it all up and call our `convert/2` function at the bottom of our `Huffman.encode/1` function passing the original text and the tree. 
+
 
 The `encode/1` function now looks like:
 
