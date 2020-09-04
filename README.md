@@ -9,3 +9,5 @@ This is as easy as:
 
 - `hugo --minify`
 - `netlify deploy --prod`
+
+or running `make deploy`
