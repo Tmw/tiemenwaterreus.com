@@ -1,5 +1,21 @@
 @import url("https://fonts.googleapis.com/css?family=Droid+Serif|Open+Sans");
 
+:root {
+  /* setup darktheme colors */
+  --darktheme-foreground-color: #fafafa;
+  --darktheme-background-color: #37393A;
+
+  /* setup light theme colors */
+  --lighttheme-foreground-color: #37393A;
+  --lighttheme-background-color: #fafafa;
+
+  /* generic colors */
+  --pop-color: #ff0084;
+  --inline-codeblock-background: rgba(255, 255, 255, 0.2);
+  --inline-codeblock-border: rgba(125, 125, 125, 0.5);
+  --link-color: var(--pop-color);
+  --link-hover-color: #999999;
+}
 
 html,
 body {
@@ -7,8 +23,63 @@ body {
   min-width: 100%;
   padding: 0px;
   margin: 0px;
-  background-color: #fafafa;
   font-size: 21px;
+}
+
+/* apply dark theme colors */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-color: var(--darktheme-foreground-color);
+    --background-color: var(--darktheme-background-color);
+  }
+
+  body, html {
+    background-color: var(--background-color);
+  }
+
+  .content p, .content h1 {
+    color: var(--foreground-color);
+  }
+
+  .single-post h1 {
+    color: var(--foreground-color);
+  }
+
+  .single-post h2, .single-post h3 {
+    color: var(--pop-color);
+  }
+
+  .single-post p {
+    color: var(--foreground-color);
+  }
+}
+
+/* apply light theme colors */
+@media (prefers-color-scheme: light) {
+  :root {
+    --foreground-color: var(--lighttheme-foreground-color);
+    --background-color: var(--lighttheme-background-color);
+  }
+
+  body, html {
+    background-color: var(--background-color);
+  }
+
+  .content h1 {
+    color: var(--foreground-color);
+  }
+
+  .single-post h1 {
+    color: var(--foreground-color);
+  }
+
+  .single-post h2, .single-post h3 {
+    color: var(--pop-color);
+  }
+
+  .single-post p {
+    color: var(--foreground-color);
+  }
 }
 
 /* DESKTOP */
@@ -33,10 +104,10 @@ body {
 }
 
 p > code {
-  background-color: white;
+  background-color: var(--inline-codeblock-background);
   padding: 0px 4px;
   border-radius: 2px;
-  border: 1px solid #cccccc;
+  border: 1px solid var(--inline-codeblock-border);
 }
 
 @media (max-width: 800px) {
@@ -59,56 +130,53 @@ p > code {
 .highlight pre {
   padding: 20px;
   overflow-x: scroll;
+  font-size: 18pt;
 }
 
 .content h1 {
   font-family: "Open Sans", sans-serif;
   font-size: 2em;
-  color: #333333;
 }
 
 .single-post h1 {
   font-family: "Open Sans", sans-serif;
   font-size: 2em;
   margin-top: 0px;
-  color: #333333;
 }
 .single-post h2 {
   font-family: "Open Sans", sans-serif;
-  color: #ff0084;
 }
 
 .single-post h3 {
-  color: #ff0084;
   font-size: 1em;
   font-family: "Open Sans", sans-serif;
 }
 
 .single-post blockquote {
-  border-left: 5px solid #ff0084;
+  border-left: 5px solid var(--pop-color);
   padding-left: 20px;
   margin: 0px;
 }
 
 .single-post blockquote p {
-  color: #333333;
+  color: var(--foreground-color);
 }
 
 p,
 li {
-  color: #333333;
+  color: var(--foreground-color);
   line-height: 1.8em;
   font-family: "Droid Serif", serif;
 }
 
 p a,
 p a:visited {
-  color: #ff0084;
+  color: var(--pop-color);
   transition: color 200ms;
 }
 
 p a:hover {
-  color: #999999;
+  color: var(--link-hover-color);
 }
 
 @media (max-width: 800px) {
@@ -139,7 +207,7 @@ p a:hover {
 }
 
 .single-post .meta {
-  color: #aaaaaa;
+  color: var(--link-hover-color);
   font-size: 0.7em;
 }
 
@@ -155,12 +223,8 @@ p a:hover {
   padding-bottom: 10px;
 }
 
-.post .draft-label {
-  color: #c9c9c9;
-}
-
 .post a {
-  color: #ff0084;
+  color: var(--link-color);
 }
 
 .bring-me-back {
@@ -170,14 +234,14 @@ p a:hover {
 
 .bring-me-back a {
   font-family: "Droid Serif", serif;
-  color: #aaaaaa;
+  color: var(--link-hover-color);
   text-decoration: none;
   padding: 10px 0px;
 }
 
 hr {
   border: none;
-  background-color: #ff0084;
+  background-color: var(--pop-color);
   height: 1px;
 }
 
@@ -192,10 +256,14 @@ figure {
   margin-inline-end: 0;
   text-align: center;
   max-width: 800px;
+
+  background-color: var(--foreground-color);
+  overflow: hidden;
+  border-radius: 5px;
 }
 
-figcaption p {
-  color: #aaaaaa;
+.single-post figcaption p {
+  color: var(--link-hover-color);
   font-style: italic;
   font-size: 0.8em;
 }
