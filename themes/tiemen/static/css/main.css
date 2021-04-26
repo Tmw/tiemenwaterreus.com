@@ -83,7 +83,7 @@ body {
 }
 
 /* DESKTOP */
-@media (min-width: 800px) {
+@media (min-width: 960px) {
   html,
   body {
     min-height: 100%;
@@ -110,14 +110,14 @@ p > code {
   border: 1px solid var(--inline-codeblock-border);
 }
 
-@media (max-width: 800px) {
+@media (max-width: 960px) {
   .highlight {
     font-size: 16px;
     margin: 0px -20px;
   }
 }
 
-@media (min-width: 800px) {
+@media (min-width: 960px) {
   .highlight pre {
     border-radius: 5px;
   }
@@ -128,8 +128,6 @@ p > code {
 }
 
 .highlight pre {
-  padding: 20px;
-  overflow-x: scroll;
   font-size: 18pt;
 }
 
@@ -179,7 +177,7 @@ p a:hover {
   color: var(--link-hover-color);
 }
 
-@media (max-width: 800px) {
+@media (max-width: 960px) {
   .content p,
   .single-post p {
     text-align: left;
@@ -196,12 +194,12 @@ p a:hover {
 
 /* list of posts */
 .posts {
-  max-width: 800px;
+  max-width: 960px;
   padding: 20px;
 }
 
 .single-post {
-  max-width: 800px;
+  max-width: 960px;
   padding: 20px;
   overflow-x: hidden;
 }
@@ -255,7 +253,6 @@ figure {
   margin-inline-start: 0;
   margin-inline-end: 0;
   text-align: center;
-  max-width: 800px;
 
   background-color: var(--foreground-color);
   overflow: hidden;
@@ -266,4 +263,5 @@ figure {
   color: var(--link-hover-color);
   font-style: italic;
   font-size: 0.8em;
+  text-align: center;
 }

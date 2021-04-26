@@ -5,4 +5,5 @@ theme = "tiemen"
 
 [markup]
   [markup.highlight]
+    linenos=true
     style="native"
