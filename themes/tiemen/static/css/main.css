@@ -251,6 +251,7 @@ figure {
   text-align: center;
   overflow: hidden;
   border-radius: 5px;
+  background-color: var(--lighttheme-background-color);
 }
 
 .single-post figcaption p {
