@@ -7,3 +7,4 @@ theme = "tiemen"
   [markup.highlight]
     linenos=true
     style="native"
+    lineNumbersInTable=false
