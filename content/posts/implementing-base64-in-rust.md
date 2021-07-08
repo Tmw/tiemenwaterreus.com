@@ -288,18 +288,16 @@ fn stitch(bytes: Vec<u8>) -> Vec<u8> {
     out.into_iter().filter(|&x| x > 0).collect()
 }
 ```
-
-Once again, depending on the input length, we're applying some bitwise operations to convert the chunk of four bytes down to 3, converting our four 6-bit numbers back into three 8-bit numbers.
+Just like with the `split` function we saw in the encoder module, depending on the input length we're applying some bitwise operations to convert the chunk of four bytes down to 3, converting our four 6-bit numbers back into three 8-bit numbers.
 
 **TODO** Add a nice illustration here again
 
 And voila, this should be the whole decoder. Obviously this module should [include some tests too](https://github.com/Tmw/base64-rs/blob/master/src/decoder.rs#L60:L84) ✨✨
 
-
-
 ## Piecing it together
 
 ** TODO** Perhaps nice little illustration here too
+
 Notice that we wrote all these pieces but our `fn main()` still has the placeholder `println!("hello, world!");` in it? Let's change that so that we can compile our binary into something useful: a command line application that actually takes binary data and converts it to Base64 and vice versa!
 
 TODO   But we still need to write that code too. I'll do that after finalising the pieces of the library :)
