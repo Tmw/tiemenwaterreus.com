@@ -23,16 +23,17 @@
     <meta property="og:url" content="{{ .Permalink }}" />
   </head>
   <body>
-    <section class="bring-me-back">
-      <a href="/posts">&larr; all posts</a>
-    </section>
-
     <section class="single-post">
+      <section class="post-pre-header">
+        <a href="/posts" class="bring-me-back">&larr; all posts</a>
+
+        <div class="meta">
+          Posted on {{ dateFormat "Jan 2, 2006" .Date }}{{ if .Draft }}
+          <span class="draft-label">DRAFT</span> {{ end }}
+        </div>
+      </section>
+
       <h1>{{ .Title }}</h1>
-      <div class="meta">
-        Posted on {{ dateFormat "Jan 2, 2006" .Date }}{{ if .Draft }}
-        <span class="draft-label">DRAFT</span> {{ end }}
-      </div>
       {{ .Content }}
     </section>
   </body>

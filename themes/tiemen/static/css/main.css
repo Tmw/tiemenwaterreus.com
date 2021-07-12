@@ -202,11 +202,6 @@ p a:hover {
   overflow-x: hidden;
 }
 
-.single-post .meta {
-  color: var(--link-hover-color);
-  text-transform: uppercase;
-  font-size: 0.7em;
-}
 
 .posts ul {
   padding: 0px;
@@ -222,18 +217,34 @@ p a:hover {
 
 .post a {
   color: var(--link-color);
+  transition: color 200ms;
+}
+
+.post a:hover {
+  color: var(--link-hover-color);
+}
+
+.post-pre-header {
+  display: flex;
+  justify-content: space-between;
 }
 
 .bring-me-back {
-  margin: 20px 0px 0px 0px;
-  padding-left: 20px;
-}
-
-.bring-me-back a {
   font-family: "Droid Serif", serif;
   color: var(--link-hover-color);
   text-decoration: none;
-  padding: 10px 0px;
+  transition: color 200ms;
+}
+
+.bring-me-back:hover {
+  color: var(--pop-color);
+}
+
+.post-pre-header .meta {
+  color: var(--link-hover-color);
+  text-transform: uppercase;
+  font-size: 0.7em;
+  align-self: center;
 }
 
 hr {
