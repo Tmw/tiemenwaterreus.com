@@ -7,52 +7,53 @@ tags: Base64, Rust, encoding, decoding
 icon: 🧲
 ---
 
-In this article we'll take a crack at implementing a Base64 encoder and decoder from scratch using Rust. Base64 is quite an easy and fun algorithm to implement, so let's dive right in!
+In this article we're taking a closer look at the Base64 algorithm and implement an encoder and decoder from scratch using the Rust programming language. Base64 is quite an easy to grasp algorithm and certainly fun to implement yourself! Let's dive right in!
 
 ## What is Base64?
-Base64 is an encoding algorithm that has its primary use in encoding a binary blob to a stringified version using 64 different ASCII characters. For example [email attachments](https://en.wikipedia.org/wiki/Email_attachment) or [embedding image data](https://en.wikipedia.org/wiki/Data_URI_scheme) directly into a `img` tag.
+Base64 is an encoding algorithm that was primarily designed to encode binary data for use in text-based algorithms by using 64 different ASCII characters to represent the bits. For example [email attachments](https://en.wikipedia.org/wiki/Email_attachment) or [embedding image data](https://en.wikipedia.org/wiki/Data_URI_scheme) directly into a `img` tag.
 
-Base64 works by chunking the original binary in chunks of 3 bytes (21 bits) and splitting these 21 bits into 4 groups of 6 bits. These 6 bits translate to a number anywhere from 0 (`0b000000`) to 63 (`0b111111`) which are mapped to 64 ASCII characters.
+Base64 works by breaking up the original binary in chunks of 3 bytes (24 bits) and splitting these 24 bits into 4 groups of 6 bits. These 6 bits translate to a number anywhere from 0 (`0b000000`) through 63 (`0b111111`) that are mapped to 64 ASCII characters.
 
-The original Base64 alphabet uses `A-Z` uppercase, `a-z` lowercase, the digits `0` through `9` and special characters `+` and `/`. The `=` is used for padding at the end of the output string, so that we always end on a multiple of four bytes. This is Base64 in a nutshell, but if you'd like to dive deeper, give [this excellent article](https://medium.com/swlh/powering-the-internet-with-base64-d823ec5df747) a read!
+The original Base64 alphabet uses `A-Z` uppercase, `a-z` lowercase, the digits `0` through `9` and special characters `+` and `/`. The `=` is used for padding at the end of the output string, so that we always end on a multiple of four bytes. This is Base64 in a nutshell, for a thorough deep dive into Base64, give [this excellent article](https://medium.com/swlh/powering-the-internet-with-base64-d823ec5df747) a read!
 
 **TODO** Include small illustration of how Base64 works (stitching multiple bytes together into 6 bit chunks.
 
-## The main problems to solve
+## The puzzle pieces
+
+Let's walk through the steps that are required to make encoding into and decoding from Base64 work:
 
 **Encoding data** to Base64 is fairly simple:
 - Take the original binary input
-- Chop this stream up in slices of 3 bytes (21 bits)
-- Within these 21 bits, chunk per 6 bits
-- Convert these 6 bits to an index (0-63)
+- Chop this stream up in slices of 3 bytes (24 bits)
+- Chunk each of these 24 bits again in 6-bit parts
+- Convert these 6 bits into an index (0-63)
 - Assign an unique character that can be found at that index in the Base64 table
-- Assign an equal sign (`=`) to remaining empty bytes until we reach a multiple of four bytes
+- Append padding characters (`=`) until we until the total encoded string reaches a multiple of four bytes.
 - et voila!
 
 **Decoding** is basically working backwards:
 - Strip off the padding (`=`)
-- Iterate over the remaining byts in chunks of four bytes
-- Lookup each ASCII char in the table and get the original index.
-- From this index take the upper 6 bits and stitch them back together
-- You should end up with a multiple of 8 bits, you've got your original data back.
+- Iterate over the remaining bytes in chunks of four bytes
+- Look up each ASCII character in the table to get the original numeric index
+- From these indexes, take the upper 6 bits and stitch them back together
+- You end up with a multiple of 8 bits which is your original data
 
 ## Let's get to work!
-Ok, enough theory, let's get to work! Let's setup a new Rust project (binary) and implement our first few modules:
+Ok, enough theory already! Let's get to work! Let's setup a new Rust project (binary) and implement our first few modules:
 ```bash
 cargo new base64 --bin
 ```
 
-
 ## Implementing an encoding alphabet
-As mentioned previously the default Base64 implementation uses an alphabet containing `A-Z`, `a-z`, `0-9`, `+` and `/`. However I'd like our alphabet to be configurable so you'd be able to supply an Emoji-based alphabet for example 👻
+As mentioned previously the default Base64 implementation uses an alphabet containing `A-Z`, `a-z`, `0-9`, `+` and `/`. However I want our alphabet to be configurable, enabling us to provide an Emoji-based alphabet instead for example 👻
 
-In order to make it configurable, let's come up with a common API that we can implement our configurable alphabets against. Such an API would be described in what Rust calls `traits`. 
+To make it configurable, let's figure out a common API that we can implement our configurable alphabets against. We're describing this API in what Rust calls a [`trait`](https://doc.rust-lang.org/book/ch10-02-traits.html) (comparable to an Interface in Java, Go or C#).
 
 ### Defining our Alphabet trait
 
-There's pretty much three operations that our alphabet should be able to perform. Going from an index to a character, going from a character back to the original 6-bit index and getting our padding character.
+There are basically three operations that our alphabet should be able to perform; Going from an index to a character, going from a character back to the original 6-bit index and getting the character used for padding.
 
-Let's create a new `src/alphabet.rs` file inside our project and let's get going:
+Let's create a new `src/alphabet.rs` file inside our project and get going:
 
 ```rust
 pub trait Alphabet {
@@ -62,12 +63,11 @@ pub trait Alphabet {
 }
 ```
 
-### Defining the classic Base64 alphabet
-Now that we have a trait describing how an alphabet within our system should look, let's put in the effort to define the classic Base64 alphabet first!
-
+### Defining the classic Base64 alphabet implementation
+Now that we wrote the contract of what an alphabet should be able to perform, let's create the classic Base64 alphabet first.
 Like we talked about in the beginning of this post, the classic alphabet uses `a-z`, `A-Z`, `0-9` plus `+`, `/` and `=` for padding.
 
-Let's define an empty struct and call it `Classic`, this will act as the type to call the methods on. Let's also supply an implementation for the `Alphabet` trait. Let's place all this into the same `src/alphabet.rs` file for now.
+We're creating an empty struct and call it `Classic`, this will act as the type to call the methods on. Let's also supply an implementation for the `Alphabet` trait and place all this into the same `src/alphabet.rs` file for now.
 
 ```rust
 // ... snip trait declaration
@@ -112,21 +112,22 @@ impl Alphabet for Classic {
 }
 ```
 
-First things first, we define an empty struct called `Classic`. Such a type in Rust-land is called a [zero-sized-type](https://doc.rust-lang.org/nomicon/exotic-sizes.html#zero-sized-types-zsts). Due to the lack of fields, it will only exist in Rusts type system. Once the compiler chewed its way through our source code, there will be no trace of this struct!
+First things first, we define an _empty_ struct called `Classic`, such a type in Rust-land is called a [zero-sized-type](https://doc.rust-lang.org/nomicon/exotic-sizes.html#zero-sized-types-zsts). Due to the lack of fields, it will only exist in Rusts type system, once the compiler chewed its way through our code, there will be no trace of this struct anymore! It is however a very neat way of passing trait implementations around and that is why we are using it.
 
-Following the struct declaration are a few constants followed by the implementation of the `Alphabet` trait on our `Classic` struct. The implementation itself makes use of the fact that characters in the ASCII alphabet are defined mostly in sequence. For example: `A` through `Z` uppercased have indexes 65 through 90. The same is true for both `a` through `z` lowercased and the digits `0` through `9`. (albeit with different offsets of course :))
+Following the struct declaration are a few constants followed by the implementation of the `Alphabet` trait on our `Classic` struct. The implementation itself makes use of the fact that characters in the ASCII alphabet are defined _mostly_ in sequence. For example: `A` through `Z` uppercased have indexes 65 through 90, the same is true for both `a` through `z` lowercased and the digits `0` through `9`.
 
-We make use of this by pre-calculating an offset between our Base64 index (0-63) and the index in the ASCII alphabet (65-90, 97-122, etc). Then using the `match` operator match on a specific range, apply the correct offset and return the result as a byte. Mission accomplished 💪
+We make use of this by pre-calculating an offset between our Base64 index (0-63) and the index in the ASCII alphabet (65-90, 97-122, etc). Then using the `match` operator match on a specific range, apply the correct offset and return the result as a byte.
+
+Mission accomplished 💪
 
 ## Building the Encoder! 🙌
 
-Now that we have defined how our alphabet should work, let's get to work building the encoder part of our project. Let's define a new module inside `src/encoder.rs`:
+Now that we have defined how our alphabet should work, let's get on to building the encoder part of our project. We'll create a new module inside `src/encoder.rs` and bring the `Alphabet` trait and `Classic` implementation into scope:
 
 ```rust
 use crate::alphabet::{Alphabet, Classic};
 ```
-
-First things first, let's bring `Alphabet` (trait) and `Classic` (implementation) into scope and then define a handful of functions that will do the main chunk of the encoding.
+The next step is setting up a few smaller functions that will take on the heavy lifting of the encoding part.
 
 ### Splitting it up!
 Let's start with our split function:
@@ -157,14 +158,14 @@ fn split(chunk: &[u8]) -> Vec<u8> {
 }
 ```
 
-Our `split` function takes a slice of bytes (`&[u8]`) and returns a `Vec<u8>`. It converts an input of up-to 3 bytes of input to an output of up-to 4 bytes as output, converting the 8-bit numbers into 6-bit numbers.
+As you can see in the function signature, the `split` function takes a slice of bytes (`&[u8]`) and returns a `Vec<u8>`. It converts the input of up-to 3 bytes into an output of up-to 4 bytes. Essentially converting the 8-bit unsigned integers into 6-bit.
 
-> To make this happen we make heavy use of bitwise operations. Depending on the length of the input we're applying different operations. In case of an 1-byte input, we return two bytes where the first 6 bits of the input byte are returned as the first output byte, and the last two bits of the input byte are returned as the second byte. In case of a 3 byte input, we follow the same kind of steps to piece different parts of the bytes together to form 4 output bytes each holding 6 bits of information.
+To achieve this, we use bitwise operations to shuffle the bits around. In case of a 1-byte input, we return two bytes where the first 6 bits of the input byte are returned as the first output byte, the last two bits of the input byte are returned as the second byte. In case of a 3 byte input, we follow the same kind of steps to piece different parts of the bytes together to form 4 output bytes each holding 6 bits of information.
 
 **[__!__] Include graphic of how we split and stitch the bits together**
 
-### Encoding against our Alphabet
-Now that we have a mechanism to convert from 8-bit numbers to 6-bit numbers, let's chunk the original data into 3-byte portions and run them through our split functions.
+### Encoding using our Alphabet
+Now that we have a mechanism to convert from 8-bit numbers to 6-bit numbers, let's slice the input data into 3-byte chunks and run them through our split function. Once they're split, we can convert each chunk by looking up the 6-bit number in our alphabet:
 
 ```rust
 pub fn encode_using_alphabet<T: Alphabet>(alphabet: &T, data: &[u8]) -> String {
@@ -176,18 +177,20 @@ pub fn encode_using_alphabet<T: Alphabet>(alphabet: &T, data: &[u8]) -> String {
     String::from_iter(encoded)
 }
 ```
-Let's define a `encode_with_alphabet` function that takes an alphabet to encode against and the original data to perform the encoding on. 
 
-The first step is chunking the data into 3-byte portions then feeding it into our split function we've defined previously. Knowing that this will return a `Vec<u8>`, we can pass this through `flat_map` running each chunk of four bytes through `encode_chunk` that does the actual lookup in the provided alphabet for us. 
+The `encode_with_alphabet` function shown above takes the alphabet to encode against en the original input string to encode. The first step is to slide the input in 3-byte chunks and feeding it into our `split` function that will return a `Vec<u8>` of maximum 4-bytes.
 
-Lastly we pass the iterator that ultimately returns a `Vec<char>` to `String::from_iter` which will consume our iterator char-by-char to exhaustion and form a String. For that to work though, we bring the `FromIterator` into scope, see:
+Passing each 6-bit number to `encode_chunk` using `flat_map` will ensure we're flattening the `Vec<char>` while we're at it and lastly we consume the iterator by passing it to `String::from_iter`!
+
+Note: For that last trick (using `String::from_iter` to build a string from an iterator) to work, we'll need to bring `FromIterator` trait into scope, see:
 
 ```rust
 use std::iter::FromIterator;
 ```
 
-### Encoding chunk by chunk
-Now back to our `encode_chunk` function:
+### encode_chunk internals
+As promised, let's zoom in a bit on the `encode_chunk` function we're using above. The function signature tells us that this function will take anything that implements the Alphabet trait (which our Classic alphabet does) and a chunk of our bytes (more specifically the `Vec<u8>` that came rolling out of the `split` function earlier.
+
 
 ```rust
 fn encode_chunk<T: Alphabet>(alphabet: &T, chunk: Vec<u8>) -> Vec<char> {
@@ -203,9 +206,9 @@ fn encode_chunk<T: Alphabet>(alphabet: &T, chunk: Vec<u8>) -> Vec<char> {
 }
 ```
 
-This function starts off by defining a `Vec<char>` holding four padding chars in case we run out of actual data to write. Note we tag the `out` variable as mutable as we're going to overwrite the positions that do hold actual data within our loop.
+This function starts off by setting up a `Vec<char>` that acts as our output buffer, to make our lives easier we're prefilling the buffer with 4 padding characters. Note that we tagged the buffer as mutable so we can overwrite the padding characters with actual data as we're going along.
 
-Inside our loop we take the 6-bit number, do a lookup against our passed in Alphabet and replace the padding symbol with the actual data, if available.
+Inside our loop we take the 6-bit number, look up the character in our alphabet by index and replace the padding symbol with the actual data, if available. At the end of the loop we just return the output buffer.
 
 That's it! That's all there is to do to get your data Base64 encoded! I wont bore you with the tests but for those interested, [check em out on the repo](https://github.com/Tmw/base64-rs/blob/master/src/decoder.rs#L64-L87)
 
@@ -218,7 +221,7 @@ Let's implement our decoder in a separate module in `src/decoder.rs`. Much like 
 use crate::alphabet::{Alphabet, Classic};
 ```
 
-Let's dive right in and define a `decode_using_alpabet` function that, much like our `encode_using_alphabet` function takes the alphabet to do the decoding against and the encoded stirng to perform the decoding on.
+Let's dive right in and define a `decode_using_alpabet` function that, much like our `encode_using_alphabet` function takes the alphabet to do the decoding against and the encoded string to perform the decoding on.
 
 ```rust
 pub fn decode_using_alphabet<T: Alphabet>(alphabet: T, data: &String) -> Vec<u8> {
@@ -237,12 +240,12 @@ pub fn decode_using_alphabet<T: Alphabet>(alphabet: T, data: &String) -> Vec<u8>
 }
 ```
 
-The first thing we do is throw an error if the supplied data does not have the length that is a multiple of four. We know that in a Base64 encoded string, we will always end up with a multiple of four bytes, if needed filled up with padding symbols. If this is simply not the case, disregard the input as corrupt and early exit our program.
+The first thing we do is throw an error if the input data does not match the requirements, arguably returning a `Result` and having an early return here would've been a better fit.. But anyway! We know that in a Base64 encoded string, we will always end up with a multiple of four bytes, padded with padding characters if needed. If it does not match the multiple of four requirement, we'll panic
 
-However if we did receive a multiple of four characters, we split the string into its `chars` in chunks of four chars each and feed the chunks to the `original` function where we're fetching the original 6-bit number from our alphabet. This chunk goes into the `stitch` function to convert back into original data.
+If the data is valid, we split the string into its `chars` and slice it in chunks of 4 `char`'s. Each slice is fed through the `original` function that will fetch the original char from the alphabet which is `flat_map`-ped through the stitch function.
 
-Let's take a look at our `original` function first:
 
+### Getting the original
 ```rust
 fn original<T: Alphabet>(alphabet: &T, chunk: &[char]) -> Vec<u8> {
     chunk
@@ -256,11 +259,11 @@ fn original<T: Alphabet>(alphabet: &T, chunk: &[char]) -> Vec<u8> {
         .collect()
 }
 ```
+The `original` function takes an Alphabet trait object again and a slice of chars (maximum of 4-bytes). It filters the padding characters and uses the looks up the left-over characters in our alphabet. Returning a Vec of bytes as the original data.
 
-It takes the alphabet again and a slice of chars (up-to four of 'em) and it returns a `Vec<u8>`. The function pretty much iterates over the characters in the slice, ignores them once they're padding characters and otherwise looks up their original index in the alphabet.
 
-### Stitch it back up
-The last function of that chain, `stitch`, takes a `Vec<u8>` and returns a `Vec<u8>` and in the middle it does pretty much the opposite of the `split` function we saw earlier:
+### Stitch it back together
+Pretty much as a reverse of `split` we're taking the various bits from two or more bytes and put it back together much like a carefully constructed Lego Millennium Falcon. It takes a `Vec` of bytes and returns another `Vec` of bytes, containing a maximum of three 8-bit numbers.
 
 ```rust
 fn stitch(bytes: Vec<u8>) -> Vec<u8> {
@@ -288,18 +291,123 @@ fn stitch(bytes: Vec<u8>) -> Vec<u8> {
     out.into_iter().filter(|&x| x > 0).collect()
 }
 ```
-Just like with the `split` function we saw in the encoder module, depending on the input length we're applying some bitwise operations to convert the chunk of four bytes down to 3, converting our four 6-bit numbers back into three 8-bit numbers.
 
 **TODO** Add a nice illustration here again
 
-And voila, this should be the whole decoder. Obviously this module should [include some tests too](https://github.com/Tmw/base64-rs/blob/master/src/decoder.rs#L60:L84) ✨✨
+Nice! The encoder and decoder are done! For completeness we obviously also [included tests](https://github.com/Tmw/base64-rs/blob/master/src/decoder.rs#L60:L84) for our decoder ✨✨
 
 ## Piecing it together
 
-** TODO** Perhaps nice little illustration here too
+Notice that we wrote all these pieces but our `fn main()` still has the placeholder `println!("Hello, world!");` in it? This is obviously unacceptable, so let's get back to it and crank out a simple CLI that will take a command line argument and read from STDIN 💪
 
-Notice that we wrote all these pieces but our `fn main()` still has the placeholder `println!("hello, world!");` in it? Let's change that so that we can compile our binary into something useful: a command line application that actually takes binary data and converts it to Base64 and vice versa!
+First things first; let's convert our `fn main()` function so that it will return a `Result` type. We do this to make our lives easier in terms of error handling, you'll see why in a bit!
 
-TODO   But we still need to write that code too. I'll do that after finalising the pieces of the library :)
+```rust
+fn main() -> Result<(), CLIError> {
+}
+```
 
-This also includes pulling in all the modules (`mod ...`) inside `main.rs`.
+Notice that we're returning an empty tuple (or `unit` in Rust) for the success type and a `CLIError` as the error type, however we have not yet defined our CLIError. Let's do that right now before the compiler yells at us:
+
+```rust
+use std::fmt;
+
+enum CLIError {
+    TooLittleArguments,
+    InvalidSubcommand(String),
+    StdInUnreadable,
+}
+
+impl std::fmt::Debug for CLIError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match &self {
+            Self::TooLittleArguments =>
+                write!(f, "Too little arguments provided"),
+
+            Self::InvalidSubcommand(cmd) =>
+                write!(f, "Invalid subcommand provided: \"{}\"", cmd),
+
+            Self::StdInUnreadable =>
+                write!(f, "Unable to read STDIN"),
+        }
+    }
+}
+```
+
+In the code above we define the enum `CLIError` that describes pretty much everything that can go wrong when calling our binary. For example; for whatever reason reading from the STDIN is not successful or we're calling our executable without providing a valid subcommand. Notice that in the case of the unknown subcommand we're also keeping track of what exactly is passed, giving our users a bit more context around the error.
+
+Notice that next to defining our enum (`CLIError`) we also make it implement the Debug trait. This trait pretty much describes how the variants inside the enum can be turned into a printable string when returned as part of the error type.
+
+The next step is writing a few functions that will make reading from STDIN, encoding and decoding a bit easier:
+
+```rust
+use std::io::{self, Read};
+
+fn read_stdin() -> Result<String, CLIError> {
+    let mut input = String::new();
+    io::stdin()
+        .read_to_string(&mut input)
+        .map_err(|_| CLIError::StdInUnreadable)?;
+
+    Ok(input.trim().to_string())
+}
+
+fn encode(input: &String) -> String {
+    encoder::encode(input.as_bytes())
+}
+
+fn decode(input: &String) -> String {
+    let decoded = decoder::decode(input);
+    let decoded_as_string = std::str::from_utf8(&decoded).unwrap();
+    decoded_as_string.to_owned()
+}
+```
+
+Note the `read_from_stdin` function also returns a `Result<String, CLIError>`. It will attempt to read from STDIN and write the contents to a string. If this succeeds it will return the `Ok` variant with the string value, but if this fails, we will map the error to a `CLIError::StdInUnreadable` error which will be pretty printed in our console.
+
+The next two functions (`encode` and `decode`) are pretty much just wrappers around our library functions `encoder` and `decoder` that will take in a reference to a string and return a owned string. To ensure we are able to use our encoder and decoder modules, let's link them to the main executable:
+
+```rust
+mod alphabet;
+mod encoder;
+mod decoder;
+```
+
+Final stretch! Let's fill in our `main()` function:
+
+```rust
+fn main() -> Result<(), CLIError> {
+    if std::env::args().count() < 2 {
+        return Err(CLIError::TooLittleArguments)
+    }
+
+    let subcommand = std::env::args().nth(1)
+        .ok_or_else(|| CLIError::TooLittleArguments)?;
+
+    let input = read_stdin()?;
+
+    let output = match subcommand.as_str() {
+        "encode" => Ok(encode(&input)),
+        "decode" => Ok(decode(&input)),
+        cmd => Err(CLIError::InvalidSubcommand(cmd.to_string())),
+    }?;
+
+    print!("{}", output);
+
+    Ok(())
+}
+```
+
+As you can see we can make a functional CLI within just a few lines of pure Rust without pulling in external dependencies. By using the `Result<T, E>` type and the question mark operator (`?`) we're essentially short-circuiting the returned `Result` types only continuing down the happy path, or retruning the error as the return value of the containing function in case of an error.
+
+That is it! That is all we need to make a fully functioning Base64 implementation from scratch in Rust and wrap it in a CLI tool. Usage:
+```bash
+# encoding
+echo "fluffy pancakes" | cargo run -- encode
+> Zmx1ZmZ5IHBhbmNha2Vz
+
+# and the reverse
+echo "Zmx1ZmZ5IHBhbmNha2Vz" | cargo run -- decode
+> fluffy pancakes
+```
+Thank you for reading!
