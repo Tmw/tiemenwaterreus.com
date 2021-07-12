@@ -6,7 +6,7 @@ draft: false
 
 # 👋 Hi there
 
-My name is Tiemen, I'm a software engineer. Currently working at [@adeleeapp](https://twitter.com/adeleeapp).
+My name is Tiemen, I'm a software engineer. Currently working on [@hhhuddle](https://twitter.com/hhhuddle).
 
 Previously [@madeawkward](https://twitter.com/madeawkward), [@wetransfer](https://twitter.com/wetransfer) and [@sketch](https://twitter.com/sketch).
 

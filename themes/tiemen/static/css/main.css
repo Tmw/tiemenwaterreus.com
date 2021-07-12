@@ -23,7 +23,7 @@ body {
   min-width: 100%;
   padding: 0px;
   margin: 0px;
-  font-size: 19px;
+  font-size: 22px;
 }
 
 /* apply dark theme colors */
@@ -102,9 +102,10 @@ body {
   padding: 0px 40px;
 }
 
-p > code {
+p > code, li > code, p > a > code {
   background-color: var(--inline-codeblock-background);
   padding: 0px 4px;
+  margin: 0px 2px;
   border-radius: 2px;
   border: 1px solid var(--inline-codeblock-border);
 }
