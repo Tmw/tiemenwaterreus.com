@@ -135,9 +135,10 @@ p > code, li > code, p > a > code {
 
 .single-post h1 {
   font-family: "Open Sans", sans-serif;
-  font-size: 2em;
+  font-size: 3em;
   margin-top: 0px;
 }
+
 .single-post h2 {
   font-family: "Open Sans", sans-serif;
 }
@@ -203,6 +204,7 @@ p a:hover {
 
 .single-post .meta {
   color: var(--link-hover-color);
+  text-transform: uppercase;
   font-size: 0.7em;
 }
 
