@@ -224,25 +224,25 @@ use crate::alphabet::{Alphabet, Classic};
 Let's dive right in and define a `decode_using_alpabet` function that, much like our `encode_using_alphabet` function takes the alphabet to do the decoding against and the encoded string to perform the decoding on.
 
 ```rust
-pub fn decode_using_alphabet<T: Alphabet>(alphabet: T, data: &String) -> Vec<u8> {
+pub fn decode_using_alphabet<T: Alphabet>(alphabet: T, data: &String) -> Result<Vec<u8>, io::Error> {
     // if data is not multiple of four bytes, data is invalid
     if data.chars().count() % 4 != 0 {
-        panic!("Invalid data");
+        return Err(io::Error::from(io::ErrorKind::InvalidInput))
     }
 
-    data
+    let result = data
         .chars()
         .collect::<Vec<char>>()
         .chunks(4)
         .map(|chunk| original(&alphabet, chunk) )
         .flat_map(stitch)
         .collect()
+
+    Ok(result)
 }
 ```
 
-The first thing we do is throw an error if the input data does not match the requirements, arguably returning a `Result` and having an early return here would've been a better fit.. But anyway! We know that in a Base64 encoded string, we will always end up with a multiple of four bytes, padded with padding characters if needed. If it does not match the multiple of four requirement, we'll panic
-
-If the data is valid, we split the string into its `chars` and slice it in chunks of 4 `char`'s. Each slice is fed through the `original` function that will fetch the original char from the alphabet which is `flat_map`-ped through the stitch function.
+The first thing we do is run a quick check if the data is indeed a multiple of four bytes, which is one of the characteristics of base64 encoded data. If it does not match these requirements, we'll return an error. When the data is valid, we split the string into its `chars` and slice it in chunks of 4 `char`'s. Each slice is fed through the `original` function that will fetch the original char from the alphabet which is `flat_map`-ped through the stitch function.
 
 
 ### Getting the original
@@ -285,7 +285,7 @@ fn stitch(bytes: Vec<u8>) -> Vec<u8> {
             (bytes[2] & 0b00000011) << 6 | bytes[3] & 0b00111111,
         ],
 
-        _ => unimplemented!("number of bytes must be 2 - 4")
+        _ => unreachable!()
     };
 
     out.into_iter().filter(|&x| x > 0).collect()
@@ -304,6 +304,7 @@ First things first; let's convert our `fn main()` function so that it will retur
 
 ```rust
 fn main() -> Result<(), CLIError> {
+
 }
 ```
 
@@ -316,6 +317,7 @@ enum CLIError {
     TooLittleArguments,
     InvalidSubcommand(String),
     StdInUnreadable,
+    DecodingError,
 }
 
 impl std::fmt::Debug for CLIError {
@@ -329,6 +331,9 @@ impl std::fmt::Debug for CLIError {
 
             Self::StdInUnreadable =>
                 write!(f, "Unable to read STDIN"),
+
+            Self::DecodingError =>
+                write!(f, "An error occured while decoding the data"),
         }
     }
 }
@@ -356,10 +361,13 @@ fn encode(input: &String) -> String {
     encoder::encode(input.as_bytes())
 }
 
-fn decode(input: &String) -> String {
-    let decoded = decoder::decode(input);
-    let decoded_as_string = std::str::from_utf8(&decoded).unwrap();
-    decoded_as_string.to_owned()
+fn decode(input: &String) -> Result<String, CLIError> {
+    let decoded = decoder::decode(input).map_err(|_| CLIError::DecodingError)?;
+
+    let decoded_as_string = std::str::from_utf8(&decoded)
+        .map_err(|_| CLIError::DecodingError)?;
+
+    Ok(decoded_as_string.to_owned())
 }
 ```
 
@@ -369,8 +377,8 @@ The next two functions (`encode` and `decode`) are pretty much just wrappers aro
 
 ```rust
 mod alphabet;
-mod encoder;
 mod decoder;
+mod encoder;
 ```
 
 Final stretch! Let's fill in our `main()` function:
@@ -378,17 +386,18 @@ Final stretch! Let's fill in our `main()` function:
 ```rust
 fn main() -> Result<(), CLIError> {
     if std::env::args().count() < 2 {
-        return Err(CLIError::TooLittleArguments)
+        return Err(CLIError::TooLittleArguments);
     }
 
-    let subcommand = std::env::args().nth(1)
+    let subcommand = std::env::args()
+        .nth(1)
         .ok_or_else(|| CLIError::TooLittleArguments)?;
 
     let input = read_stdin()?;
 
     let output = match subcommand.as_str() {
         "encode" => Ok(encode(&input)),
-        "decode" => Ok(decode(&input)),
+        "decode" => Ok(decode(&input)?),
         cmd => Err(CLIError::InvalidSubcommand(cmd.to_string())),
     }?;
 
