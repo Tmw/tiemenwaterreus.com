@@ -1,6 +1,6 @@
 ---
 title: Implementing Base64 from scratch in Rust
-date: 2021-04-03T12:13:03+02:00
+date: 2021-05-03T12:13:03+02:00
 draft: false
 description: Implementing a Base64 encoder and decoder from scratch in Rust.
 tags: Base64, Rust, encoding, decoding
@@ -14,9 +14,9 @@ Base64 is an encoding algorithm that was primarily designed to encode binary dat
 
 Base64 works by breaking up the original binary in chunks of 3 bytes (24 bits) and splitting these 24 bits into 4 groups of 6 bits. These 6 bits translate to a number anywhere from 0 (`0b000000`) through 63 (`0b111111`) that are mapped to 64 ASCII characters.
 
-The original Base64 alphabet uses `A-Z` uppercase, `a-z` lowercase, the digits `0` through `9` and special characters `+` and `/`. The `=` is used for padding at the end of the output string, so that we always end on a multiple of four bytes. This is Base64 in a nutshell, for a thorough deep dive into Base64, give [this excellent article](https://medium.com/swlh/powering-the-internet-with-base64-d823ec5df747) a read!
+{{< figure src="/resources/base64/encode-explainer.png" caption="Base64 encoder schematic" >}}
 
-**TODO** Include small illustration of how Base64 works (stitching multiple bytes together into 6 bit chunks.
+The original Base64 alphabet uses `A-Z` uppercase, `a-z` lowercase, the digits `0` through `9` and special characters `+` and `/`. The `=` is used for padding at the end of the output string, so that we always end on a multiple of four bytes. This is Base64 in a nutshell, for a thorough deep dive into Base64, give [this excellent article](https://medium.com/swlh/powering-the-internet-with-base64-d823ec5df747) a read!
 
 ## The puzzle pieces
 
@@ -162,8 +162,6 @@ As you can see in the function signature, the `split` function takes a slice of 
 
 To achieve this, we use bitwise operations to shuffle the bits around. In case of a 1-byte input, we return two bytes where the first 6 bits of the input byte are returned as the first output byte, the last two bits of the input byte are returned as the second byte. In case of a 3 byte input, we follow the same kind of steps to piece different parts of the bytes together to form 4 output bytes each holding 6 bits of information.
 
-**[__!__] Include graphic of how we split and stitch the bits together**
-
 ### Encoding using our Alphabet
 Now that we have a mechanism to convert from 8-bit numbers to 6-bit numbers, let's slice the input data into 3-byte chunks and run them through our split function. Once they're split, we can convert each chunk by looking up the 6-bit number in our alphabet:
 
@@ -291,8 +289,8 @@ fn stitch(bytes: Vec<u8>) -> Vec<u8> {
     out.into_iter().filter(|&x| x > 0).collect()
 }
 ```
-
-**TODO** Add a nice illustration here again
+And this is how that looks in a schematic:
+{{< figure src="/resources/base64/decode-explainer.png" caption="Base64 decoder schematic" >}}
 
 Nice! The encoder and decoder are done! For completeness we obviously also [included tests](https://github.com/Tmw/base64-rs/blob/master/src/decoder.rs#L60:L84) for our decoder ✨✨
 
