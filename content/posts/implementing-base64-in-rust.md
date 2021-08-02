@@ -1,6 +1,6 @@
 ---
 title: Implementing Base64 from scratch in Rust
-date: 2021-05-03T12:13:03+02:00
+date: 2021-08-01T12:13:03+02:00
 draft: false
 description: Implementing a Base64 encoder and decoder from scratch in Rust.
 tags: Base64, Rust, encoding, decoding
@@ -204,7 +204,7 @@ fn encode_chunk<T: Alphabet>(alphabet: &T, chunk: Vec<u8>) -> Vec<char> {
 }
 ```
 
-This function starts off by setting up a `Vec<char>` that acts as our output buffer, to make our lives easier we're prefilling the buffer with 4 padding characters. Note that we tagged the buffer as mutable so we can overwrite the padding characters with actual data as we're going along.
+This function starts off by setting up a `Vec<char>` that acts as our output buffer, to make our lives easier we're pre filling the buffer with 4 padding characters. Note that we tagged the buffer as mutable so we can overwrite the padding characters with actual data as we're going along.
 
 Inside our loop we take the 6-bit number, look up the character in our alphabet by index and replace the padding symbol with the actual data, if available. At the end of the loop we just return the output buffer.
 
@@ -240,7 +240,7 @@ pub fn decode_using_alphabet<T: Alphabet>(alphabet: T, data: &String) -> Result<
 }
 ```
 
-The first thing we do is run a quick check if the data is indeed a multiple of four bytes, which is one of the characteristics of base64 encoded data. If it does not match these requirements, we'll return an error. When the data is valid, we split the string into its `chars` and slice it in chunks of 4 `char`'s. Each slice is fed through the `original` function that will fetch the original char from the alphabet which is `flat_map`-ped through the stitch function.
+The first thing we do is run a quick check if the data is indeed a multiple of four bytes, which is one of the characteristics of base64 encoded data. If it does not match these requirements, we'll return an error. When the data is valid, we split the string into its `chars` and slice it in chunks of 4 `char`'s. Each slice is fed through the `original` function that will fetch the original char from the alphabet which is `flat_map`'ed through the stitch function.
 
 
 ### Getting the original
@@ -257,7 +257,7 @@ fn original<T: Alphabet>(alphabet: &T, chunk: &[char]) -> Vec<u8> {
         .collect()
 }
 ```
-The `original` function takes an Alphabet trait object again and a slice of chars (maximum of 4-bytes). It filters the padding characters and uses the looks up the left-over characters in our alphabet. Returning a Vec of bytes as the original data.
+The `original` function takes an Alphabet trait object again and a slice of chars (maximum of 4-bytes). It filters the padding characters and uses the looks up the left-over characters in our alphabet. Returning a `Vec` of bytes as the original data.
 
 
 ### Stitch it back together
@@ -337,9 +337,9 @@ impl std::fmt::Debug for CLIError {
 }
 ```
 
-In the code above we define the enum `CLIError` that describes pretty much everything that can go wrong when calling our binary. For example; for whatever reason reading from the STDIN is not successful or we're calling our executable without providing a valid subcommand. Notice that in the case of the unknown subcommand we're also keeping track of what exactly is passed, giving our users a bit more context around the error.
+In the code above we define the `enum CLIError` that describes pretty much everything that can go wrong when calling our binary. For example; for whatever reason reading from the STDIN is not successful or we're calling our executable without providing a valid subcommand. Notice that in the case of the unknown subcommand we're also keeping track of what exactly is passed, giving our users a bit more context around the error.
 
-Notice that next to defining our enum (`CLIError`) we also make it implement the Debug trait. This trait pretty much describes how the variants inside the enum can be turned into a printable string when returned as part of the error type.
+Notice that next to defining our `CLIError` we also make it implement the Debug trait. This trait pretty much describes how the variants inside the enum can be turned into a printable string when returned as part of the error type.
 
 The next step is writing a few functions that will make reading from STDIN, encoding and decoding a bit easier:
 
@@ -405,7 +405,7 @@ fn main() -> Result<(), CLIError> {
 }
 ```
 
-As you can see we can make a functional CLI within just a few lines of pure Rust without pulling in external dependencies. By using the `Result<T, E>` type and the question mark operator (`?`) we're essentially short-circuiting the returned `Result` types only continuing down the happy path, or retruning the error as the return value of the containing function in case of an error.
+As you can see we can make a functional CLI within just a few lines of pure Rust without pulling in external dependencies. By using the `Result<T, E>` type and the question mark operator (`?`) we're essentially short-circuiting the returned `Result` types only continuing down the happy path, or returning the error as the return value of the containing function in case of an error.
 
 That is it! That is all we need to make a fully functioning Base64 implementation from scratch in Rust and wrap it in a CLI tool. Usage:
 ```bash
