@@ -109,6 +109,10 @@ impl Alphabet for Classic {
 
         Some(base64_index)
     }
+
+    fn get_padding_char(&self) -> char {
+        '='
+    }
 }
 ```
 
@@ -234,7 +238,7 @@ pub fn decode_using_alphabet<T: Alphabet>(alphabet: T, data: &String) -> Result<
         .chunks(4)
         .map(|chunk| original(&alphabet, chunk) )
         .flat_map(stitch)
-        .collect()
+        .collect();
 
     Ok(result)
 }
