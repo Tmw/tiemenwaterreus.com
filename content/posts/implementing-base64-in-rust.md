@@ -316,7 +316,7 @@ Notice that we're returning an empty tuple (or `unit` in Rust) for the success t
 use std::fmt;
 
 enum CLIError {
-    TooLittleArguments,
+    TooFewArguments,
     InvalidSubcommand(String),
     StdInUnreadable,
     DecodingError,
@@ -325,7 +325,7 @@ enum CLIError {
 impl std::fmt::Debug for CLIError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match &self {
-            Self::TooLittleArguments =>
+            Self::TooFewArguments =>
                 write!(f, "Too little arguments provided"),
 
             Self::InvalidSubcommand(cmd) =>
@@ -388,12 +388,12 @@ Final stretch! Let's fill in our `main()` function:
 ```rust
 fn main() -> Result<(), CLIError> {
     if std::env::args().count() < 2 {
-        return Err(CLIError::TooLittleArguments);
+        return Err(CLIError::TooFewArguments);
     }
 
     let subcommand = std::env::args()
         .nth(1)
-        .ok_or_else(|| CLIError::TooLittleArguments)?;
+        .ok_or_else(|| CLIError::TooFewArguments)?;
 
     let input = read_stdin()?;
 
