@@ -422,4 +422,4 @@ echo "Zmx1ZmZ5IHBhbmNha2Vz" | cargo run -- decode
 > fluffy pancakes
 ```
 
-Thank you for reading! The finished project can be found [on github](https://github.com/tmw/base64-rs) :)
+Thank you for reading! The finished project can be found [on GitHub](https://github.com/tmw/base64-rs) :)
