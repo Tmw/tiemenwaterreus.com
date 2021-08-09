@@ -326,7 +326,7 @@ impl std::fmt::Debug for CLIError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match &self {
             Self::TooFewArguments =>
-                write!(f, "Too little arguments provided"),
+                write!(f, "Not enough arguments provided"),
 
             Self::InvalidSubcommand(cmd) =>
                 write!(f, "Invalid subcommand provided: \"{}\"", cmd),
