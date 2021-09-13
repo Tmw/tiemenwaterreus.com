@@ -403,7 +403,7 @@ fn main() -> Result<(), CLIError> {
         cmd => Err(CLIError::InvalidSubcommand(cmd.to_string())),
     }?;
 
-    print!("{}", output);
+    println!("{}", output);
 
     Ok(())
 }
@@ -414,11 +414,11 @@ As you can see we can make a functional CLI within just a few lines of pure Rust
 That is it! That is all we need to make a fully functioning Base64 implementation from scratch in Rust and wrap it in a CLI tool. Usage:
 ```bash
 # encoding
-echo "fluffy pancakes" | cargo run -- encode
+echo 'fluffy pancakes' | cargo run -- encode
 > Zmx1ZmZ5IHBhbmNha2Vz
 
 # and the reverse
-echo "Zmx1ZmZ5IHBhbmNha2Vz" | cargo run -- decode
+echo 'Zmx1ZmZ5IHBhbmNha2Vz' | cargo run -- decode
 > fluffy pancakes
 ```
 
