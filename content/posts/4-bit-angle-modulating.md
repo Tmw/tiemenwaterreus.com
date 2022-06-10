@@ -113,10 +113,4 @@ The rest of the code is untouched. The `turnOnLed()` method is still the same wh
 
 That’s it! This is all we have to do to make Bit Angle Modulation work on an Arduino using shift registers.
 
-## Demo video
-
-In my example I’ve written a couple of animations that use the fading effects on my array of LEDs. A link to the full source of this project can be found here and don’t hesitate to send me your video’s of your own animations!
-
-{{< youtube id="1vbBsKNxcDE" >}}
-
 Thanks for reading!
