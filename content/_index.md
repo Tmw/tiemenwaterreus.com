@@ -6,8 +6,8 @@ draft: false
 
 # 👋 Hi there
 
-My name is Tiemen, I'm a software engineer. Currently working on [@hhhuddle](https://twitter.com/hhhuddle).
+My name is Tiemen, I'm a software engineer at [Mibo](https://twitter.com/get_mibo).
 
-Previously [@madeawkward](https://twitter.com/madeawkward), [@wetransfer](https://twitter.com/wetransfer) and [@sketch](https://twitter.com/sketch).
+Previously [@adelee](https://twitter.com/adeleeapp), [@madeawkward](https://twitter.com/madeawkward), [@wetransfer](https://twitter.com/wetransfer) and [@sketch](https://twitter.com/sketch).
 
-See my [Github](https://github.com/tmw), [Twitter](https://twitter.com/tiemenwaterreus) or my [Scribbles](/posts/).
+See my [Github](https://github.com/tmw), [Twitter](https://twitter.com/tiemenwaterreus) or my [occasional blogpost](/posts/).
