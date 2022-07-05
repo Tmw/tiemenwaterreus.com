@@ -3,14 +3,14 @@
 :root {
   /* setup darktheme colors */
   --darktheme-foreground-color: #fafafa;
-  --darktheme-background-color: #37393A;
+  --darktheme-background-color: #1c242e;
 
   /* setup light theme colors */
-  --lighttheme-foreground-color: #37393A;
+  --lighttheme-foreground-color: #1c242e;
   --lighttheme-background-color: #fafafa;
 
   /* generic colors */
-  --pop-color: #ff0084;
+  --pop-color: #ff8f75;
   --inline-codeblock-background: rgba(255, 255, 255, 0.2);
   --inline-codeblock-border: rgba(125, 125, 125, 0.5);
   --link-color: var(--pop-color);
