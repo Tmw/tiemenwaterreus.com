@@ -7,7 +7,7 @@ draft: false
 # 👋 Hi there
 
 My name is Tiemen, I'm a software engineer at
-[Grafana](https://twitter.com/grafana).
+[Grafana Labs](https://twitter.com/grafana).
 
 Previously at [Mibo](https://twitter.com/get_mibo), [Adelee](https://twitter.com/adeleeapp), [Awkward](https://twitter.com/madeawkward), [WeTransfer](https://twitter.com/wetransfer) and [Sketch](https://twitter.com/sketch).
 
